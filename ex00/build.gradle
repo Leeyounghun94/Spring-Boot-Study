@@ -25,6 +25,9 @@ repositories {
 
 dependencies {  // 과거의 스프링 Maven 래퍼지토리 (pom.xml)
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // 프론트 담당
+    // https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-java8time
+    implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time', version: '3.0.4.RELEASE'  //날짜 시간 출력 포맷팅
+
     implementation 'org.springframework.boot:spring-boot-starter-web'       // 스프링 웹
    // implementation 'org.springframework.boot:spring-boot-starter-web-services'  // 스프링 웹 서비스(생략 가능)
 
@@ -38,9 +41,9 @@ dependencies {  // 과거의 스프링 Maven 래퍼지토리 (pom.xml)
 
     // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.4.1'
+
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa // DB객체 지향으로 설정
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.3.4'
-
     //JPA에서 필요한 URL, ID, PW, 드라이버 등을 Application.properties에 넣어야 한다.
 
 

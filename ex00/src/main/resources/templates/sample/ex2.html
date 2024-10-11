@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ex2.html</title>
+</head>
+<body>
+
+  <ul>
+      <th:block th:each="dto: ${list}">
+          <li th:text="${dto.sno % 5 == 0}? ${dto.sno}: ${dto.first}"></li>
+      </th:block>
+      <!--                   조건         참 : 번호      거짓 : first 값--> <!-- th안에 주석 주의해야함..-->
+  </ul>
+
+</body>
+</html>
