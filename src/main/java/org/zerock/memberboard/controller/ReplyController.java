@@ -5,10 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.zerock.memberboard.dto.ReplyDTO;
 import org.zerock.memberboard.service.ReplyService;
 
@@ -33,5 +30,36 @@ public class ReplyController {
     }   // : BoardDTO(bno=200, title=Title...100, content=Content....100, writerEmail=user100@aaa.com, writerName=USER100, regDate=2024-10-15T15:06:49.848107, modDate=2024-10-15T15:06:49.848107, replyCount=0)
 
 
-    // 329 PAGE
+    @PostMapping("")
+    public ResponseEntity<Long> replyInsert(@RequestBody ReplyDTO replyDTO) {
+        //@RequestBody는 Json으로 들어오는 데이터를 자동으로 해당 타입의 객체로 매핑해주는 역할을 한다.
+
+        log.info(replyDTO);
+
+        Long rno = replyService.register(replyDTO);
+
+        return  new ResponseEntity<>(rno, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/{rno}")
+    public ResponseEntity<String> replyDelete(@PathVariable("rno") Long rno) {
+
+        log.info(" 번호 : " + rno);
+
+        replyService.remove(rno);
+
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+
+    @PutMapping("/{rno}")
+    public ResponseEntity<String> replyModify(@RequestBody ReplyDTO replyDTO) {
+
+        log.info(replyDTO);
+
+        replyService.modify(replyDTO);
+
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
 }
