@@ -39,6 +39,7 @@ public class CustomUserDetailService implements UserDetailsService {
     public CustomUserDetailService() {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }// 현재 클래스가 동작할 때 기본적으로 암호 처리 객체를 생성한다.
+    //BCryptPasswordEncoder -> 알고리즘으로 암호화 처리, 같은 문자열이라고 해도 처리 결과가 매번 다르기 때문에 패스워드 암호화에 많이 사용
 
 
 

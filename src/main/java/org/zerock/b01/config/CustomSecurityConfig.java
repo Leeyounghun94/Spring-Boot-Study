@@ -25,6 +25,7 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor    // @Configuration 와 세트
 @Log4j2
 @EnableMethodSecurity(prePostEnabled = true)// 시큐리티6버전에서 추가!
+// prePostEnabled -> 원하는곳에 @PreAutohorize / @PostAuthorize 를 사용하여 권한 체크!
 //@EnableGlobalAuthentication -> 시큐리티 5버전이하 에서는 사용
 public class CustomSecurityConfig {
 
@@ -87,6 +88,11 @@ public class CustomSecurityConfig {
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());  // 6버전 코드
         // 정식 발행 시 토큰을 사용을 해야 보안상 좋기 때문에 각 html 파일에다가 csrf 토큰을 전달해서 해결 해야한다.(테스트 할 때는 비활성하고)
 
+        /* 여기에서 CSRF 토큰이 나오는데, 이 방식은 사이트 이용할때마다 매번 변경되는 문자열 생성하고 이를 요청 시 검증하는 방식이다.
+        시큐리티의 경우 GET 제외한 나머지 방식에서는 토큰을 전송하도록 되어있다.
+                토큰 이용하는것이 보안상 좋지만 기존의 POST/DELETE/PUT + AJAX 까지 수정 해야 한다는 단점이 있다.
+
+         */
 
         http.rememberMe(httpSecurityRememberMeConfigurer -> {
 
@@ -95,6 +101,9 @@ public class CustomSecurityConfig {
                     .userDetailsService(userDetailsService) // 사용자 정보에 대한 객체
                     .tokenValiditySeconds(60*60*24*30); // 쿠키 AgeTime(30일)
         });
+        /*
+        remember-me ->  쿠키에 유효 기간을 지정하여 쿠키를 브라우저에 보관하게 하고 쿠키 값인 특정한 문자열 보관하여 로그인 관련 정보를 유지 시키는 방식이다.
+         */
 
 
         // 403 오류 처리

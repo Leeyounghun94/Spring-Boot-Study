@@ -102,6 +102,9 @@ public class BoardController {
     }
 
     @PreAuthorize("principal.username == #boardDTO.writer")
+    // principal.username -> 현재 로그인된 사용자 아이디
+    //  #boardDTO.writer -> 현재의 파라미터가 수집된 DTO
+
     @PostMapping("/modify")
     public String modify( PageRequestDTO pageRequestDTO,
                           @Valid BoardDTO boardDTO,

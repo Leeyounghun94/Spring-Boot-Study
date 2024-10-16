@@ -50,4 +50,9 @@
 
 <script layout:fragment="script" th:inline="javascript">
 
+  const  error = [[${error}]]
+
+  if (error && error == 'mid') {
+    alert("동일한 MID를 가진 계정이 존재합니다. 다시 확인해 주시기 바랍니다.")
+  }
 </script>
