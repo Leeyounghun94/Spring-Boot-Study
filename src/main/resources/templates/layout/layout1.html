@@ -1,52 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<th:block th:fragment="setContent(content)">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Layout1 : 3등분 된 레이아웃</title>
+    <title>Layout page</title>
 </head>
 <body>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
 
-        .header {
-            width: 100vw;
-            height: 20vh;
-            background-color: aqua;
+<div>
+    <h3>Sample Layout Header</h3>
+</div>
+<!--/*  layout:fragment=" " 해당영역은 나중에 다른 파일에서 해당 부분만 개발 할 수 있음   */ -->
+<div layout:fragment="content">
+    <!--/*  content 조각    */ -->
+    <p>Page content goes here</p>
+</div>
 
-        }
+<div>
+    <h3>Sample Layout Footer</h3>
+</div>
 
-        .content {
-            width: 100vw;
-            height: 70vh;
-            background-color: lightgray;
-        }
-
-        .footer {
-            width: 100vw;
-            height: 10vh;
-            background-color: green;
-        }
-    </style>
-
-    <div class="header">
-        <h1>header 부분입니당.</h1>
-    </div>
-
-    <div class="content">
-      <th:block th:replace="${content}">
-
-      </th:block>
-    </div>
-
-    <div class="footer">
-        <h1>footer 부분입니당.</h1>
-    </div>
+<th:block layout:fragment="script" >
+    <!--/*  script 조각    */ -->
+</th:block>
 
 </body>
-</th:block>
 </html>
