@@ -15,13 +15,12 @@ import org.zerock.memberboard.dto.PageRequestDTO;
 import org.zerock.memberboard.service.BoardService;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/board/")
 @Log4j2
 @RequiredArgsConstructor
 public class BoardController {
 
     private final BoardService boardService;
-
 
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model){
@@ -93,10 +92,14 @@ public class BoardController {
         redirectAttributes.addAttribute("page",requestDTO.getPage());
         redirectAttributes.addAttribute("type",requestDTO.getType());
         redirectAttributes.addAttribute("keyword",requestDTO.getKeyword());
+
         redirectAttributes.addAttribute("bno",dto.getBno());
 
         return "redirect:/board/read";
 
     }
+
+
+
 
 }

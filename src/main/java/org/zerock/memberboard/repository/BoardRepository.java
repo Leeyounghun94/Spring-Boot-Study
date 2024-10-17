@@ -25,12 +25,12 @@ public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoard
             " GROUP BY b",
             countQuery ="SELECT count(b) FROM Board b")
     Page<Object[]> getBoardWithReplyCount(Pageable pageable);
-    // 목록화면에 필요한 데이터
+
 
     @Query("SELECT b, w, count(r) " +
             " FROM Board b LEFT JOIN b.writer w " +
             " LEFT OUTER JOIN Reply r ON r.board = b" +
             " WHERE b.bno = :bno")
     Object getBoardByBno(@Param("bno") Long bno);
-    // 목록처리와 유사하나 특정한 게시물 번호를 사용하는 부분이 다르다!
+
 }

@@ -7,18 +7,18 @@ import org.zerock.memberboard.entity.Board;
 import org.zerock.memberboard.entity.Member;
 
 public interface BoardService {
-
     Long register(BoardDTO dto);
 
-    PageResultDTO<BoardDTO, Object[]> getList(PageRequestDTO pageRequestDTO);   // 목록 처리
+    PageResultDTO<BoardDTO, Object[]> getList(PageRequestDTO pageRequestDTO);
 
-    BoardDTO get(Long bno); // 게시물 조회 처리
+    BoardDTO get(Long bno);
 
-    void removeWithReplies(Long bno);// 삭제 기능
+    void removeWithReplies(Long bno);
 
-    void modify(BoardDTO boardDTO); //  게시물 수정 처리
+    void modify(BoardDTO boardDTO);
 
     default Board dtoToEntity(BoardDTO dto){
+
         Member member = Member.builder().email(dto.getWriterEmail()).build();
 
         Board board = Board.builder()
@@ -29,7 +29,6 @@ public interface BoardService {
                 .build();
         return board;
     }
-
 
     default BoardDTO entityToDTO(Board board, Member member, Long replyCount) {
 

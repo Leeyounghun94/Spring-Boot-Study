@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString(exclude = "movie")// 연관 관계 항상 주의
+@Embeddable
 public class MovieImage {
 
 

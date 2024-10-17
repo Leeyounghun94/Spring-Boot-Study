@@ -10,9 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Data
-public class  PageResultDTO<DTO, EN> { // dto to entity 변환
-
-
+public class PageResultDTO<DTO, EN> {  // dto to entity 변환
 
     //DTO리스트
     private List<DTO> dtoList;
@@ -63,4 +61,5 @@ public class  PageResultDTO<DTO, EN> { // dto to entity 변환
         pageList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
 
     }
+
 }
