@@ -14,10 +14,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.zerock.b01.security.CustomUserDetailService;
 import org.zerock.b01.security.handler.Custom403Handler;
+import org.zerock.b01.security.handler.CustomSocialLoginSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -76,7 +78,8 @@ public class CustomSecurityConfig {
         // 5버전 이하 코드 : http.formLogin();
         http.formLogin(form -> {
 
-            form.loginPage("/member/login");
+            form.loginPage("/member/login")
+                    .defaultSuccessUrl("/board/list");
         }// 자동으로 시큐리티에서 만든 로그인 폼을 내가 만든 로그인폼으로 활용한다.
 
         );
@@ -105,12 +108,18 @@ public class CustomSecurityConfig {
         remember-me ->  쿠키에 유효 기간을 지정하여 쿠키를 브라우저에 보관하게 하고 쿠키 값인 특정한 문자열 보관하여 로그인 관련 정보를 유지 시키는 방식이다.
          */
 
-
-        // 403 오류 처리
-        http.exceptionHandling(httpSecurityExceptionHandlingConfigurer -> {
+        http.exceptionHandling((httpSecurityExceptionHandlingConfigurer -> {
 
             httpSecurityExceptionHandlingConfigurer.accessDeniedHandler(accessDeniedHandler());
 
+        }));
+
+
+        http.oauth2Login( httpSecurityOAuth2LoginConfigurer -> {
+
+            httpSecurityOAuth2LoginConfigurer.loginPage("/member/login");
+
+            httpSecurityOAuth2LoginConfigurer.successHandler(authenticationSuccessHandler());
         });
 
         return http.build();
@@ -152,6 +161,11 @@ public class CustomSecurityConfig {
     public AccessDeniedHandler accessDeniedHandler() {
 
         return new Custom403Handler();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new CustomSocialLoginSuccessHandler(passwordEncoder());
     }
 }
 
